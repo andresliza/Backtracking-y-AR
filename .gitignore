@@ -39,3 +39,8 @@
 
 # debug information files
 *.dwo
+
+diversidad
+testsUnitarios
+tiempos
+resultados.csv
