@@ -37,7 +37,7 @@ int main() {
     srand(time(0));
 
     vector<int> ns;
-    for (int i = 10; i <= 200; i += 10) ns.push_back(i);
+    for (int i = 50; i <= 1000; i += 50) ns.push_back(i);
 
     ofstream csv("resultados_ar.csv");
     csv << "N,M,Tiempo_Mediano_us\n";
