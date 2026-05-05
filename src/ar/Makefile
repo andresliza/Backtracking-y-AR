@@ -1,6 +1,6 @@
 all: planificacion
 
-planificacion: main.cpp ar.cpp ar.hpp common.hpp
+planificacion: main.cpp ar.cpp ar.hpp
 	g++ main.cpp ar.cpp -o planificacion
 
 clean:
