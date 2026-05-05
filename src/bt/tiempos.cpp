@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// aleatoria, con valores de 0 a 99
 vector<vector<int>> generarMatrizDistancias(int n) {
     vector<vector<int>> d(n, vector<int>(n));
     for (int i = 0; i < n; ++i) {
@@ -38,7 +39,6 @@ double calcularMediana(vector<double> tiempos) {
 int main() {
     srand(time(0));
 
-    // N crece de 2 en 2, pero M tiene un tope de 5
     vector<int> ns;
     for (int i = 4; i <= 60; i += 2) ns.push_back(i);
 
@@ -50,7 +50,7 @@ int main() {
     cout << "------------------------------------------" << endl;
 
     for (int n : ns) {
-        // M es el mínimo entre 5 y n/2
+        // para evitar crecimiento exponencial de tiempos, capamos m a 5 como mucho
         int m = min(5, n / 2); 
         vector<double> tiempos;
         

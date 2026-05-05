@@ -11,5 +11,3 @@ tiempos: tiempos.cpp bt.cpp bt_aux.cpp bt.hpp bt_aux.hpp common.hpp
 
 clean:
 	rm -f diversidad testsUnitarios tiempos resultados.csv
-
-.PHONY: clean all
