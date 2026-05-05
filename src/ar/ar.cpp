@@ -1,13 +1,5 @@
-#include <vector>
+#include "ar.hpp"
 #include <limits>
-
-using namespace std;
-
-struct SolucionAR {
-    int tiempoTotal;
-    vector<int> ordenTareas;
-    vector<int> asignacionMaquinas;
-};
 
 SolucionAR AlgoritmoAR(int n, int m, const vector<vector<int>>& tiempos) {
     vector<bool> tareasCompletadas(n, false); // vector de tamaño n que indica si la tarea i está completada

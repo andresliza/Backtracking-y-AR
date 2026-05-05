@@ -1,16 +1,7 @@
 #include <iostream>
-#include <vector>
+#include "ar.hpp"
 
 using namespace std;
-
-struct SolucionAR {
-    int tiempoTotal;
-    vector<int> ordenTareas;
-    vector<int> asignacionMaquinas;
-};
-
-// declaración de la función que está en ar.cpp
-SolucionAR AlgoritmoAR(int n, int m, const vector<vector<int>>& tiempos);
 
 int main() {
 
