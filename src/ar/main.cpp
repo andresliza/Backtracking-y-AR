@@ -1,9 +1,20 @@
 #include <iostream>
-#include "ar.hpp"
+#include <vector>
 
 using namespace std;
 
+struct SolucionAR {
+    int tiempoTotal;
+    vector<int> ordenTareas;
+    vector<int> asignacionMaquinas;
+};
+
+// Declaración de la función que está en ar.cpp
+SolucionAR AlgoritmoAR(int n, int m, const vector<vector<int>>& tiempos);
+
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int P;
     if (!(cin >> P)) return 0;
