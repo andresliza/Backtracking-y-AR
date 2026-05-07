@@ -8,7 +8,7 @@ from scipy import stats
 import os
 
 # Leer CSV
-csv_path = "src/ar/resultados_ar.csv"
+csv_path = "resultados_ar.csv"
 df = pd.read_csv(csv_path)
 df.columns = [c.strip() for c in df.columns]
 
