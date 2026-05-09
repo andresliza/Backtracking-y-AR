@@ -23,7 +23,7 @@ if df is not None:
     slope, intercept, r_value, p_value, std_err = stats.linregress(df["n_pow"], df["Tiempo_Mediano_us"])
     
     print(f"\n--- Análisis: Avance Rápido (Greedy) ---")
-    print(f"  Modelo: Theta(n^2)")
+    print(f"  Modelo: O(n^2)")
     print(f"  R2: {r_value**2:.6f}")
 
     # Gráfica Lineal
