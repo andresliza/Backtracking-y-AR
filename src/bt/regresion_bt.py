@@ -20,7 +20,7 @@ if df_peor is not None:
     slope, intercept, r_value, _, _ = stats.linregress(df_peor["n_pow"], df_peor["Tiempo_Mediano_us"])
     
     print(f"\n--- Análisis: Peor Caso ---")
-    print(f"  Modelo: Theta(n^6)")
+    print(f"  Modelo: O(n^6)")
     print(f"  R2: {r_value**2:.6f}")
 
     # Gráfica Lineal
@@ -54,7 +54,7 @@ if df_mejor is not None:
     slope, intercept, r_value, _, _ = stats.linregress(df_mejor["n_pow"], df_mejor["Tiempo_Mediano_us"])
     
     print(f"\n--- Análisis: Mejor Caso ---")
-    print(f"  Modelo: Theta(n^2)")
+    print(f"  Modelo: O(n^2)")
     print(f"  R2: {r_value**2:.6f}")
 
     # Gráfica Lineal

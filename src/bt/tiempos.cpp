@@ -48,35 +48,33 @@ int main() {
     srand(time(0));
 
     int m = 5;
+// --- PEOR CASO ---
+ofstream csv_peor("resultados_peor.csv");
+csv_peor << "N,M,Tiempo_Mediano_us\n";
+cout << "--- Generando Peor Caso (N hasta 50) ---" << endl;
+for (int n = 10; n <= 50; n += 5) {
+    vector<double> tiempos;
+    vector<vector<int>> d = generarMatrizPeorCaso(n);
+    for (int i = 0; i < 3; ++i) tiempos.push_back(medirTiempo(n, m, d));
+    double mediana = calcularMediana(tiempos);
+    csv_peor << n << "," << m << "," << mediana << "\n";
+    cout << "N=" << n << "\t" << mediana / 1000.0 << " ms" << endl;
+}
+csv_peor.close();
 
-    // --- PEOR CASO (se mantiene igual, ya validado) ---
-    ofstream csv_peor("resultados_peor.csv");
-    csv_peor << "N,M,Tiempo_Mediano_us\n";
-    cout << "--- Generando Peor Caso (Evitando podas) ---" << endl;
-    for (int n = 10; n <= 30; n += 2) {
-        vector<double> tiempos;
-        vector<vector<int>> d = generarMatrizPeorCaso(n);
-        for (int i = 0; i < 3; ++i) tiempos.push_back(medirTiempo(n, m, d));
-        double mediana = calcularMediana(tiempos);
-        csv_peor << n << "," << m << "," << mediana << "\n";
-        cout << "N=" << n << "\t" << mediana / 1000.0 << " ms" << endl;
-    }
-    csv_peor.close();
-
-    // --- MEJOR CASO (Ampliado para detectar curvatura) ---
-    ofstream csv_mejor("resultados_mejor.csv");
-    csv_mejor << "N,M,Tiempo_Mediano_us\n";
-    cout << "\n--- Generando Mejor Caso (Ampliado N hasta 500) ---" << endl;
-    for (int n = 10; n <= 500; n += 20) {
-        vector<double> tiempos;
-        vector<vector<int>> d = generarMatrizMejorCaso(n, m);
-        // ejecutamos 10 veces para mayor precisión
-        for (int i = 0; i < 10; ++i) tiempos.push_back(medirTiempo(n, m, d));
-        double mediana = calcularMediana(tiempos);
-        csv_mejor << n << "," << m << "," << mediana << "\n";
-        cout << "N=" << n << "\t" << mediana / 1000.0 << " ms" << endl;
-    }
-    csv_mejor.close();
+// --- MEJOR CASO ---
+ofstream csv_mejor("resultados_mejor.csv");
+csv_mejor << "N,M,Tiempo_Mediano_us\n";
+cout << "\n--- Generando Mejor Caso (N hasta 2500) ---" << endl;
+for (int n = 100; n <= 2500; n += 100) {
+    vector<double> tiempos;
+    vector<vector<int>> d = generarMatrizMejorCaso(n, m);
+    for (int i = 0; i < 10; ++i) tiempos.push_back(medirTiempo(n, m, d));
+    double mediana = calcularMediana(tiempos);
+    csv_mejor << n << "," << m << "," << mediana << "\n";
+    cout << "N=" << n << "\t" << mediana / 1000.0 << " ms" << endl;
+}
+csv_mejor.close();
 
     cout << "------------------------------------------" << endl;
     return 0;
