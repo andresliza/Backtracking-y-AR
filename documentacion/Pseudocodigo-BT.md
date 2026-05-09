@@ -1,14 +1,14 @@
 # 📝 Diseño en pseudocódigo (Backtracking)
 
 ## 1. Programa Principal
-El programa principal lee la matriz de distancias y el tamaño de la subpoblación deseada ($m$), llama al algoritmo y muestra el valor de la diversidad máxima encontrada.
+El programa principal gestiona la entrada de datos, lee la matriz de distancias y el tamaño de la subpoblación, y muestra el resultado final.
 
 ```pseudo
 FUNCION Principal
 
     // Número de casos de prueba
     Leer T
-    
+
     PARA i = 0 HASTA T-1 HACER
         // n = número de elementos, m = tamaño de la subpoblación
         Leer n, m
@@ -30,76 +30,90 @@ FUNCION Principal
 FIN FUNCION
 ```
 
-## 2. Algoritmo de Backtracking (Iterativo)
-Para evitar problemas de memoria en la pila, hemos diseñado una versión iterativa que simula el recorrido del árbol de decisión mediante un bucle `MIENTRAS` y un control manual del nivel.
+## 2. Algoritmo de Backtracking
+Se utiliza un esquema iterativo para explorar el árbol de estados, evitando el uso de la pila recursiva.
 
 ```pseudo
 FUNCION AlgoritmoBT(n, m, d)
 
     nivel = 0
-    Vector s[n] = InicializarVector(-1)    // -1: sin explorar, 1: elegido, 0: descartado
+    Vector s[n] = InicializarVector(-1)    // -1: no explorado, 1: elegido, 0: descartado
     soa = VACIO
     voa = -1
-    
+
     MIENTRAS nivel != -1
-    
         Generar(nivel, s)
         
-        // Si hemos llegado a elegir m elementos, tenemos una solución candidata
-        SI m_act == m ENTONCES
-            SI v_act > voa ENTONCES
-                voa = v_act
+        SI EsSolucion(nivel, s, m) ENTONCES
+            v = CalcularSolucion(s, d)
+            
+            SI Mejora(v, voa) ENTONCES
+                voa = v
                 soa = Copia(s)
             FIN SI
         FIN SI
             
-        // Comprobamos si merece la pena seguir bajando por esta rama
-        SI nivel < n - 1 Y m_act < m Y Criterio(nivel, s, voa, n, m) ENTONCES
+        SI Criterio(nivel, s, voa, n, m) ENTONCES
             nivel = nivel + 1
         SI NO
-            // Si no podemos bajar, buscamos el siguiente hermano o retrocedemos
             MIENTRAS nivel >= 0 Y NO HayHermanos(nivel, s) HACER
                 Retroceder(nivel, s)
             FIN MIENTRAS
         FIN SI
         
     FIN MIENTRAS
-    
+
     DEVOLVER {soa, voa}
 
 FIN FUNCION
 ```
 
 ## 3. Subrutinas Auxiliares
-Estas funciones gestionan los cambios de estado en el árbol y las podas para mejorar el rendimiento.
 
 ```pseudo
 FUNCION Generar(nivel, s)
-    // Pasa de -1 a 1 (elegir), o de 1 a 0 (descartar)
-    SI s[nivel] == -1 ENTONCES 
-        s[nivel] = 1
-    SINO 
-        s[nivel] = 0
-    FIN SI
+    s[nivel] = s[nivel] + 1
 FIN FUNCION
 
 FUNCION HayHermanos(nivel, s)
-    // Solo hay hermanos si acabamos de probar a elegir el elemento (1)
-    DEVOLVER s[nivel] == 1
+    DEVOLVER s[nivel] < 1
 FIN FUNCION
 
 FUNCION Retroceder(nivel, s)
-    s[nivel] = -1 // Resetear estado para futuras exploraciones
+    s[nivel] = -1
     nivel = nivel - 1
 FIN FUNCION
 
+FUNCION EsSolucion(nivel, s, m)
+    DEVOLVER ContarElegidos(s) == m Y nivel == n - 1
+FIN FUNCION
+
+FUNCION Mejora(v, voa)
+    DEVOLVER v > voa
+FIN FUNCION
+
+FUNCION CalcularSolucion(s, d)
+    v = 0
+    PARA i = 0 HASTA Tamaño(s) - 1
+        PARA j = 0 HASTA Tamaño(s) - 1
+            SI s[i] == 1 Y s[j] == 1 HACER
+                v = v + d[i, j]
+            FIN SI
+        FIN PARA
+    FIN PARA 
+    DEVOLVER v
+FIN FUNCION
+
 FUNCION Criterio(nivel, s, voa, n, m)
-    // Poda por tamaño: ¿podemos llegar todavía a m elementos?
-    SI (m_act + restantes) < m ENTONCES DEVOLVER FALSO
+    elegidos = ContarElegidosHasta(s, nivel)
+    restantes = (n - 1) - nivel
+
+    // Poda por exceso
+    SI elegidos > m ENTONCES DEVOLVER FALSO
     
-    // Poda por cota superior: ¿es posible mejorar la voa?
-    SI CotaSuperior(v_act) <= voa ENTONCES DEVOLVER FALSO
-    
+    // Poda por defecto
+    SI (elegidos + restantes) < m ENTONCES DEVOLVER FALSO
+
     DEVOLVER VERDADERO 
 FIN FUNCION
 ```
