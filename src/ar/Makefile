@@ -10,4 +10,4 @@ tiempos: tiempos.cpp ar.cpp ar.hpp
 	g++ tiempos.cpp ar.cpp -o tiempos
 
 clean:
-	rm -f planificacion testsUnitarios tiempos resultados_ar.csv
+	rm -f planificacion testsUnitarios tiempos *.o *.csv assets/*.jpg
