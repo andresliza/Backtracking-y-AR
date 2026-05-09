@@ -36,13 +36,20 @@
 *.exe
 *.out
 *.app
+diversidad
+testsUnitarios
+tiempos
+planificacion
 
 # debug information files
 *.dwo
 
-diversidad
-testsUnitarios
-tiempos
-resultados.csv
-planificacion
-resultados_ar.csv
+# Project specific
+*.csv
+*.zip
+*.pdf
+assets/*.jpg
+assets/*.pdf
+src/ar/assets/
+src/bt/assets/
+!Memoria_AED2_Convocatoria_II_2025/assets/
