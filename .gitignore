@@ -48,7 +48,7 @@ planificacion
 *.csv
 *.zip
 *.pdf
-assets/*.jpg
+*.jpg
 assets/*.pdf
 src/ar/assets/
 src/bt/assets/
