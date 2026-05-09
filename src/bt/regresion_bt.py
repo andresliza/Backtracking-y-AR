@@ -14,22 +14,22 @@ os.makedirs("assets", exist_ok=True)
 df_peor = pd.read_csv("resultados_peor.csv") if os.path.exists("resultados_peor.csv") else None
 df_mejor = pd.read_csv("resultados_mejor.csv") if os.path.exists("resultados_mejor.csv") else None
 
-# --- ANALISIS PEOR CASO (Theta(n^5)) ---
+# --- ANALISIS PEOR CASO (Theta(n^6)) ---
 if df_peor is not None:
-    df_peor["n_pow"] = df_peor["N"] ** 5
+    df_peor["n_pow"] = df_peor["N"] ** 6
     slope, intercept, r_value, _, _ = stats.linregress(df_peor["n_pow"], df_peor["Tiempo_Mediano_us"])
     
     print(f"\n--- Análisis: Peor Caso ---")
-    print(f"  Modelo: Theta(n^5)")
+    print(f"  Modelo: Theta(n^6)")
     print(f"  R2: {r_value**2:.6f}")
 
     # Gráfica Lineal
     plt.figure()
     plt.plot(df_peor["N"], df_peor["Tiempo_Mediano_us"], "o", label="PeorCaso")
-    plt.plot(df_peor["N"], slope * df_peor["n_pow"] + intercept, label=r"Ajuste $\Theta(n^5)$")
+    plt.plot(df_peor["N"], slope * df_peor["n_pow"] + intercept, label=r"Ajuste $\Theta(n^6)$")
     plt.xlabel("n")
     plt.ylabel("Tiempo (us)")
-    plt.title(r"Peor caso $\sim \Theta(n^5)$")
+    plt.title(r"Peor caso $\sim \Theta(n^6)$")
     plt.legend()
     plt.grid(True)
     plt.savefig("assets/regresion_bt_peor_lineal.jpg")
@@ -38,11 +38,11 @@ if df_peor is not None:
     # Gráfica Logarítmica (eje x log base 2)
     plt.figure()
     plt.plot(df_peor["N"], df_peor["Tiempo_Mediano_us"], "o", label="PeorCaso")
-    plt.plot(df_peor["N"], slope * df_peor["n_pow"] + intercept, label=r"Ajuste $\Theta(n^5)$")
+    plt.plot(df_peor["N"], slope * df_peor["n_pow"] + intercept, label=r"Ajuste $\Theta(n^6)$")
     plt.xscale("log", base=2)
     plt.xlabel("n")
     plt.ylabel("Tiempo (us)")
-    plt.title(r"Peor caso $\sim \Theta(n^5)$ (Escala Log)")
+    plt.title(r"Peor caso $\sim \Theta(n^6)$ (Escala Log)")
     plt.legend()
     plt.grid(True)
     plt.savefig("assets/regresion_bt_peor_log.jpg")
