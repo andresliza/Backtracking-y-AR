@@ -1,4 +1,3 @@
-#include "bt.hpp"
 #include "bt_aux.hpp"
 
 Solucion AlgoritmoBT(int n, int m, const vector<vector<int>>& d) {

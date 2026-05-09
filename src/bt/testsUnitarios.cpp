@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include "bt.hpp"
+#include "bt_aux.hpp"
 
 using namespace std;
 
